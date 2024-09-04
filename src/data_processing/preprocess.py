@@ -44,8 +44,12 @@ def preprocess_image(image_path, size=(256, 256), brightness_factor=1.5):
     image = resize_image(image, size=size)
     image = adjust_brightness(image, factor=brightness_factor)
     
+    # Create directory if it doesn't exist
+    output_dir = Path("public/preprocessed")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
     # Save preprocessed image
-    preprocessed_path = Path(f"preprocessed_{Path(image_path).name}")
+    preprocessed_path = output_dir / f"preprocessed_{Path(image_path).name}"
     image.save(preprocessed_path)
     
     return preprocessed_path

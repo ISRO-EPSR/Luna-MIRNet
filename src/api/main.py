@@ -12,7 +12,7 @@ async def read_root():
 
 @app.post("/upload/")
 async def upload_image(file: UploadFile = File(...)):
-    file_path = Path(f"public/{file.filename}")
+    file_path = Path(f"public/uploaded/{file.filename}")
     with open(file_path, "wb") as f:
         f.write(file.file.read())
     
