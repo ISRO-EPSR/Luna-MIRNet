@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Enhancement</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Upload an Image for Enhancement</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+    <h2>Enhanced Image</h2>
+    <img id="resultImage" src="" alt="Enhanced Image">
+    
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('file', document.getElementById('fileInput').files[0]);
+            
+            const response = await fetch('/upload/', {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (response.ok) {
+                const imageUrl = URL.createObjectURL(await response.blob());
+                document.getElementById('resultImage').src = imageUrl;
+            } else {
+                alert('Image upload failed.');
+            }
+        });
+    </script>
+</body>
+</html>
