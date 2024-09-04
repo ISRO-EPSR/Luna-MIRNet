@@ -1,14 +1,17 @@
 from PIL import Image
-from pathlib import Path
+import numpy as np
 
-def enhance_image(image_path: Path) -> Path:
-    # Load the image
-    image = Image.open(image_path)
-    
-    # Simulate enhancement (e.g., save it with a new name)
-    enhanced_image_path = image_path.with_name(f"enhanced_{image_path.name}")
-    
-    # Save the "enhanced" image
-    image.save(enhanced_image_path)
-    
-    return enhanced_image_path
+def enhance_image(image_path):
+    """Placeholder function for image enhancement."""
+    # Load the preprocessed image
+    with Image.open(image_path) as img:
+        # Example enhancement: Convert to a NumPy array and back
+        img_array = np.array(img)
+        enhanced_array = img_array  # Apply your enhancement algorithm here
+        enhanced_img = Image.fromarray(enhanced_array)
+        
+        # Save the enhanced image
+        enhanced_path = image_path.with_name(f"enhanced_{image_path.name}")
+        enhanced_img.save(enhanced_path)
+        
+        return enhanced_path

@@ -1,6 +1,6 @@
 from PIL import Image, ImageEnhance
-import cv2
 import numpy as np
+import cv2
 from pathlib import Path
 
 def denoise_image(image_cv):
@@ -13,7 +13,7 @@ def equalize_histogram(image_cv):
         return cv2.equalizeHist(image_cv)
     else:  # Color image
         ycrcb = cv2.cvtColor(image_cv, cv2.COLOR_BGR2YCrCb)
-        channels = cv2.split(ycrcb)
+        channels = list(cv2.split(ycrcb))  # Convert tuple to list
         channels[0] = cv2.equalizeHist(channels[0])
         ycrcb = cv2.merge(channels)
         return cv2.cvtColor(ycrcb, cv2.COLOR_YCrCb2BGR)
@@ -27,11 +27,6 @@ def adjust_brightness(image, factor=1.5):
     enhancer = ImageEnhance.Brightness(image)
     return enhancer.enhance(factor)
 
-def shadow_correction(image_cv):
-    """Placeholder for shadow correction logic."""
-    # Implement shadow correction logic if needed
-    return image_cv
-
 def preprocess_image(image_path, size=(256, 256), brightness_factor=1.5):
     """Preprocess the image by applying various steps."""
     # Load image
@@ -43,7 +38,6 @@ def preprocess_image(image_path, size=(256, 256), brightness_factor=1.5):
     # Apply preprocessing steps
     image_cv = denoise_image(image_cv)
     image_cv = equalize_histogram(image_cv)
-    image_cv = shadow_correction(image_cv)
     
     # Convert back to PIL format for resizing and brightness adjustment
     image = Image.fromarray(image_cv)
