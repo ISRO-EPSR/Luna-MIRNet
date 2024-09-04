@@ -1,0 +1,10 @@
+numpy
+pandas
+scikit-learn
+tensorflow
+fastapi
+uvicorn
+opencv-python
+pydantic
+pillow
+gradio 
