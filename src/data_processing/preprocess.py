@@ -18,6 +18,7 @@ def equalize_histogram(image_cv):
         ycrcb = cv2.merge(channels)
         return cv2.cvtColor(ycrcb, cv2.COLOR_YCrCb2BGR)
 
+
 def resize_image(image, size=(256, 256)):
     """Resize the image to the specified size."""
     return image.resize(size)
